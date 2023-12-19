@@ -26,6 +26,8 @@ jobs:
       run: dotnet build --no-restore
 
   Test:
+
+      needs: build # Ensure that the Build job is completed before starting the Test job
       runs-on: ubuntu-latest
 
       steps:
