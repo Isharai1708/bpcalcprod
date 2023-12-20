@@ -40,8 +40,8 @@ jobs:
               SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             with:
               args:
-                  -Dsonar.projectKey=isharai1708
-                  -Dsonar.organization=Isharai1708_bpcalcprod  
+                  -Dsonar.projectKey=Isharai1708_bpcalcprod
+                  -Dsonar.organization=isharai1708
 
   Test:
 
