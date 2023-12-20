@@ -96,5 +96,3 @@ jobs:
         run: dotnet build --no-restore
       - name: Test
         run: dotnet test ./test/BPCalculator.TEST/BPCalculator.TEST.csproj --no-build
-
-

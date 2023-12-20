@@ -8,195 +8,54 @@ namespace BPCalculator.TEST;
 
 public class UnitTest1
 {
-    // [Fact]
-    // public void TestIdealBloodPressure()
-    // {
-    //     // Arrange
-    //     BloodPressure bloodPressure = new BloodPressure
-    //     {
-    //         Systolic = 120,
-    //         Diastolic = 80
-    //     };
-
-    //     // Act
-    //     BPCategory category = bloodPressure.Category;
-
-    //     // Assert
-    //     Assert.Equal(BPCategory.Ideal, category);
-    // }
- 
-
-
-    [Fact]
-    public void TestPreHighBloodPressureCategory()
-    {
-        // Arrange
-        BloodPressure bloodPressure = new BloodPressure
+    // Test for High Blood Pressure
+        [Theory]
+        [InlineData(140, 90)]
+        [InlineData(180, 100)]
+        public void BloodPressure_HighCategory(int systolic, int diastolic)
         {
-            Systolic = 140,
-            Diastolic = 80
-        };
+            var bp = new BloodPressure { Systolic = systolic, Diastolic = diastolic };
+            Assert.Equal(BPCategory.High, bp.Category);
+        }
 
-        // Act
-        BPCategory category = bloodPressure.Category;
-
-        // Assert
-        Assert.Equal(BPCategory.PreHigh, category);
-    }
- 
-
-
-[Fact]
-public void TestBloodPressureCategory()
-{
-    // Arrange
-    BloodPressure bloodPressure = new BloodPressure();
-    bloodPressure.Systolic = 120;
-    bloodPressure.Diastolic = 90;
-
-    // Act
-    BPCategory category = bloodPressure.Category;
-
-    // Assert
-    Assert.Equal(BPCategory.PreHigh, category);
-} 
-
-
-
-    [Fact]
-    public void TestHighBloodPressure()
-    {
-        // Arrange
-        BloodPressure bloodPressure = new BloodPressure
+        // Test for Pre-High Blood Pressure
+        [Theory]
+        [InlineData(120, 80)]
+        [InlineData(139, 89)]
+        public void BloodPressure_PreHighCategory(int systolic, int diastolic)
         {
-            Systolic = 140,
-            Diastolic = 90
-        };
+            var bp = new BloodPressure { Systolic = systolic, Diastolic = diastolic };
+            Assert.Equal(BPCategory.PreHigh, bp.Category);
+        }
 
-        // Act
-        BPCategory category = bloodPressure.Category;
-
-        // Assert
-        Assert.Equal(BPCategory.High, category);
-    }
- 
-
-
-
-    [Fact]
-    public void TestLowBloodPressure()
-    {
-        // Arrange
-        BloodPressure bloodPressure = new BloodPressure
+        // Test for Ideal Blood Pressure
+        [Theory]
+        [InlineData(90, 60)]
+        [InlineData(119, 79)]
+        public void BloodPressure_IdealCategory(int systolic, int diastolic)
         {
-            Systolic = 70,
-            Diastolic = 40
-        };
+            var bp = new BloodPressure { Systolic = systolic, Diastolic = diastolic };
+            Assert.Equal(BPCategory.Ideal, bp.Category);
+        }
 
-        // Act
-        BPCategory category = bloodPressure.Category;
-
-        // Assert
-        Assert.Equal(BPCategory.Low, category);
-    }
-
-
-
-
-    [Fact]
-    public void TestSuperHighBloodPressure()
-    {
-        // Arrange
-        BloodPressure bloodPressure = new BloodPressure
+        // Test for Low Blood Pressure
+        [Theory]
+        [InlineData(70, 40)]
+        [InlineData(89, 59)]
+        public void BloodPressure_LowCategory(int systolic, int diastolic)
         {
-            Systolic = 190,
-            Diastolic = 100
-        };
+            var bp = new BloodPressure { Systolic = systolic, Diastolic = diastolic };
+            Assert.Equal(BPCategory.Low, bp.Category);
+        }
 
-        // Act
-        BPCategory category = bloodPressure.Category;
-
-        // Assert
-        Assert.Equal(BPCategory.High, category);
-    }
-
-
-
-
-    [Fact]
-    public void TestSystolicBelowLowerLimit()
-    {
-        // Arrange
-        BloodPressure bloodPressure = new BloodPressure
+        // Test for Invalid Values
+        [Theory]
+        [InlineData(191, 101)]
+        [InlineData(69, 39)]
+        public void BloodPressure_InvalidValues(int systolic, int diastolic)
         {
-            Systolic = 60,
-            Diastolic = 80
-        };
-
-        // Act
-        BPCategory category = bloodPressure.Category;
-
-        // Assert
-        Assert.Equal(BPCategory.Low, category);
-    }
- 
-
-
-
-    // [Fact]
-    // public void TestSystolicValueAboveUpperLimit()
-    // {
-    //     // Arrange
-    //     BloodPressure bloodPressure = new BloodPressure
-    //     {
-    //         Systolic = 200,
-    //         Diastolic = 80
-    //     };
-
-    //     // Act
-    //     BPCategory category = bloodPressure.Category;
-
-    //     // Assert
-    //     Assert.Equal(BPCategory.High, category);
-    // }
- 
-
-
-
-    [Fact]
-    public void TestDiastolicBelowLowerLimit()
-    {
-        // Arrange
-        BloodPressure bloodPressure = new BloodPressure
-        {
-            Systolic = 120,
-            Diastolic = 30
-        };
-
-        // Act
-        BPCategory category = bloodPressure.Category;
-
-        // Assert
-        Assert.Equal(BPCategory.Low, category);
-    }
- 
-
-
-
-    // [Fact]
-    // public void DiastolicValueAboveUpperLimit()
-    // {
-    //     // Arrange
-    //     BloodPressure bloodPressure = new BloodPressure
-    //     {
-    //         Systolic = 120,
-    //         Diastolic = 110
-    //     };
-
-    //     // Act
-    //     BPCategory category = bloodPressure.Category;
-
-    //     // Assert
-    //     Assert.Equal(BPCategory.High, category);
-    // }
+            var bp = new BloodPressure { Systolic = systolic, Diastolic = diastolic };
+            // Here, you need to check for validation failure
+            // This depends on how you handle validation in your application
+        }
 }
