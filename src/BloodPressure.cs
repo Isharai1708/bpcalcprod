@@ -32,15 +32,15 @@ namespace BPCalculator
             get
             {
                 // According to the chart provided
-                if (Systolic >= 140 && Diastolic >= 90)
+                if (Systolic >= 140 || Diastolic >= 90)
                 {
                     return BPCategory.High;
                 }
-                else if (Systolic >= 120 && Diastolic >= 80)
+                else if (Systolic >= 120 || Diastolic >= 80)
                 {
                     return BPCategory.PreHigh;
                 }
-                else if (Systolic >= 90 && Diastolic >= 60)
+                else if (Systolic >= 90 || Diastolic >= 60)
                 {
                     return BPCategory.Ideal;
                 }
@@ -49,24 +49,6 @@ namespace BPCalculator
                     return BPCategory.Low;
                 }
             }
-        }
-
-        // New feature: Get health advice based on BP category
-        public string GetHealthAdvice()
-        {
-            switch (Category)
-            {
-                case BPCategory.Low:
-                    return "Blood pressure is low. Consider consulting a healthcare provider.";
-                case BPCategory.Ideal:
-                    return "Blood pressure is at an ideal level. Keep up the healthy lifestyle!";
-                case BPCategory.PreHigh:
-                    return "Pre-high blood pressure. Consider lifestyle changes and regular monitoring.";
-                case BPCategory.High:
-                    return "High blood pressure. Consult a healthcare provider for advice.";
-                default:
-                    return "Blood pressure category not determined.";
-            }
-        }
-    }
+        } // This is the missing closing brace for the getter
+    } // This is the missing closing brace for the class
 }
