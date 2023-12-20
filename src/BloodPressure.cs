@@ -8,9 +8,9 @@ namespace BPCalculator
     public enum BPCategory
     {
         [Display(Name="Low Blood Pressure")] Low,
-        [Display(Name="Ideal Blood Pressure")]  Ideal,
+        [Display(Name="Ideal Blood Pressure")] Ideal,
         [Display(Name="Pre-High Blood Pressure")] PreHigh,
-        [Display(Name ="High Blood Pressure")]  High
+        [Display(Name="High Blood Pressure")] High
     };
 
     public class BloodPressure
@@ -21,10 +21,10 @@ namespace BPCalculator
         public const int DiastolicMax = 100;
 
         [Range(SystolicMin, SystolicMax, ErrorMessage = "Invalid Systolic Value")]
-        public int Systolic { get; set; }                       // mmHG
+        public int Systolic { get; set; } // mmHG
 
         [Range(DiastolicMin, DiastolicMax, ErrorMessage = "Invalid Diastolic Value")]
-        public int Diastolic { get; set; }                      // mmHG
+        public int Diastolic { get; set; } // mmHG
 
         // calculate BP category
         public BPCategory Category
@@ -48,6 +48,24 @@ namespace BPCalculator
                 {
                     return BPCategory.Low;
                 }
+            }
+        }
+
+        // New feature: Get health advice based on BP category
+        public string GetHealthAdvice()
+        {
+            switch (Category)
+            {
+                case BPCategory.Low:
+                    return "Blood pressure is low. Consider consulting a healthcare provider.";
+                case BPCategory.Ideal:
+                    return "Blood pressure is at an ideal level. Keep up the healthy lifestyle!";
+                case BPCategory.PreHigh:
+                    return "Pre-high blood pressure. Consider lifestyle changes and regular monitoring.";
+                case BPCategory.High:
+                    return "High blood pressure. Consult a healthcare provider for advice.";
+                default:
+                    return "Blood pressure category not determined.";
             }
         }
     }
