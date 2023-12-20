@@ -51,3 +51,11 @@ jobs:
       steps:
       - name: Test
         run: dotnet test --no-build --verbosity normal
+
+  Deploy :
+    needs: Test # Ensure that the  job is completed before starting the Test job
+    runs-on : ubuntu-latest
+
+    steps:
+      - name: Publish
+        run: dotnet publish -c Release --output out

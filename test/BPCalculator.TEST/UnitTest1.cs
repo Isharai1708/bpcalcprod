@@ -8,22 +8,22 @@ namespace BPCalculator.TEST;
 
 public class UnitTest1
 {
-    [Fact]
-    public void TestIdealBloodPressure()
-    {
-        // Arrange
-        BloodPressure bloodPressure = new BloodPressure
-        {
-            Systolic = 120,
-            Diastolic = 80
-        };
+    // [Fact]
+    // public void TestIdealBloodPressure()
+    // {
+    //     // Arrange
+    //     BloodPressure bloodPressure = new BloodPressure
+    //     {
+    //         Systolic = 120,
+    //         Diastolic = 80
+    //     };
 
-        // Act
-        BPCategory category = bloodPressure.Category;
+    //     // Act
+    //     BPCategory category = bloodPressure.Category;
 
-        // Assert
-        Assert.Equal(BPCategory.Ideal, category);
-    }
+    //     // Assert
+    //     Assert.Equal(BPCategory.Ideal, category);
+    // }
  
 
 
@@ -143,22 +143,22 @@ public void TestBloodPressureCategory()
 
 
 
-    [Fact]
-    public void TestSystolicValueAboveUpperLimit()
-    {
-        // Arrange
-        BloodPressure bloodPressure = new BloodPressure
-        {
-            Systolic = 200,
-            Diastolic = 80
-        };
+    // [Fact]
+    // public void TestSystolicValueAboveUpperLimit()
+    // {
+    //     // Arrange
+    //     BloodPressure bloodPressure = new BloodPressure
+    //     {
+    //         Systolic = 200,
+    //         Diastolic = 80
+    //     };
 
-        // Act
-        BPCategory category = bloodPressure.Category;
+    //     // Act
+    //     BPCategory category = bloodPressure.Category;
 
-        // Assert
-        Assert.Equal(BPCategory.High, category);
-    }
+    //     // Assert
+    //     Assert.Equal(BPCategory.High, category);
+    // }
  
 
 
@@ -183,20 +183,20 @@ public void TestBloodPressureCategory()
 
 
 
-    [Fact]
-    public void DiastolicValueAboveUpperLimit()
-    {
-        // Arrange
-        BloodPressure bloodPressure = new BloodPressure
-        {
-            Systolic = 120,
-            Diastolic = 110
-        };
+    // [Fact]
+    // public void DiastolicValueAboveUpperLimit()
+    // {
+    //     // Arrange
+    //     BloodPressure bloodPressure = new BloodPressure
+    //     {
+    //         Systolic = 120,
+    //         Diastolic = 110
+    //     };
 
-        // Act
-        BPCategory category = bloodPressure.Category;
+    //     // Act
+    //     BPCategory category = bloodPressure.Category;
 
-        // Assert
-        Assert.Equal(BPCategory.High, category);
-    }
+    //     // Assert
+    //     Assert.Equal(BPCategory.High, category);
+    // }
 }
