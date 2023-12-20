@@ -11,7 +11,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: projectbp
-  AZURE_WEBAPP_PACKAGE_PATH: "./publish"
+  AZURE_WEBAPP_PACKAGE_PATH: "."
 
 
 jobs:
@@ -45,26 +45,39 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --configuration Release
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Publish
+      run:  dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+    - name: Upload artifact for deployment job
+      uses: actions/upload-artifact@v3
+      with:
+        name: .net-app
+        path: ${{env.DOTNET_ROOT}}/myapp
+
+
 
   Deploy :
     needs: Build_Test # Ensure that the  job is completed before starting the Test job
     runs-on : ubuntu-latest
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v3
       with:
-        dotnet-version: '8.0.x'
-    - name: Publish
-      run: dotnet publish -c Release --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH}}'
-    - name: Deployment
+        name: .net-app
+    
+
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME}}
-        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE}}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH}}
+          app-name: 'projectbp'
+          slot-name: 'production'
+          package: .
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE}}
 
