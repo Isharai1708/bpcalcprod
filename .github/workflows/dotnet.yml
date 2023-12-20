@@ -50,7 +50,7 @@ jobs:
 
       steps:
       - name: Test
-        run: dotnet test
+        run: dotnet test ./BPCalculator.sln
 
   Deploy :
     needs: Test # Ensure that the  job is completed before starting the Test job
