@@ -31,10 +31,13 @@ jobs:
         args:
             -Dsonar.projectKey=Isharai1708_bpcalcprod
             -Dsonar.organization=isharai1708
-    - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/dotnet@master
-      env:
-        SNYK_TOKEN: ${{ secrets.SYNK_TOKEN}}
+    - name: Run SOOS SCA Scan for vulnerabilities
+      uses: soos-io/soos-sca-github-action@v1.2.4
+      with:
+        project_name: "BPCALCULATOR"
+        client_id: ${{ secrets.SOOS_CLIENTID}}
+        api_key: ${{ secrets.SOOS_API_KEY}}
+
 
   Build_Test:
     needs : CodeAnalysis # Ensure that the Build job is completed before starting the Test job
