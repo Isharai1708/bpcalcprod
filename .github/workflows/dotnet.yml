@@ -76,7 +76,7 @@ jobs:
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
-          app-name: 'projectbp'
+          app-name: 'bpmonproj'
           slot-name: 'production'
           package: .
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE}}
