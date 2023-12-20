@@ -10,8 +10,25 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  CodeAnalysis:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args:
+            -Dsonar.projectKey=Isharai1708_bpcalcprod
+            -Dsonar.organization=isharai1708
 
+  Build_Test:
+    needs : CodeAnalysis # Ensure that the Build job is completed before starting the Test job
     runs-on: ubuntu-latest
 
     steps:
@@ -24,38 +41,18 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-
-  CodeAnalysis:
-          needs : build # Ensure that the Build job is completed before starting the Test job
-          runs-on: ubuntu-latest
-          steps:
-          - uses: actions/checkout@v3
-            with:
-              # Disabling shallow clone is recommended for improving relevancy of reporting
-              fetch-depth: 0
-          - name: SonarCloud Scan
-            uses: sonarsource/sonarcloud-github-action@master
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-            with:
-              args:
-                  -Dsonar.projectKey=Isharai1708_bpcalcprod
-                  -Dsonar.organization=isharai1708
-
-  Test:
-
-      needs: CodeAnalysis # Ensure that the  job is completed before starting the Test job
-      runs-on: ubuntu-latest
-
-      steps:
-      - name: Test
-        run: dotnet test --no-build --verbosity normal
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
 
   Deploy :
-    needs: Test # Ensure that the  job is completed before starting the Test job
+    needs: Build_Test # Ensure that the  job is completed before starting the Test job
     runs-on : ubuntu-latest
 
     steps:
-      - name: Publish
-        run: dotnet publish -c Release --output out
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+    - name: Publish
+      run: dotnet publish -c Release --output out
