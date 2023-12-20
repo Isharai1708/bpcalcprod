@@ -139,7 +139,7 @@ jobs:
       apiSecret: ${{secrets.BZM_SECERET}}
       continuePipeline: "false"
       showTailLog: "false"
-      testID: "13752747"
+      testID: "13754529"
     steps:
       - uses: actions/checkout@v3
         name: BlazmeterTests
